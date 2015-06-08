@@ -5,8 +5,8 @@ var options = {
     cert: fs.readFileSync('/etc/ssl/server.crt'),
     ca: fs.readFileSync('/etc/ssl/server.ca.crt')
 };
-// ThunderConnector = require('thunder-connector');
-// ThunderConnector.connect();
+ThunderConnector = require('thunder-connector');
+ThunderConnector.connect();
 
 https.createServer(options, function(req, res) {
     function sendResponse() {
@@ -29,7 +29,7 @@ https.createServer(options, function(req, res) {
             echoResponse.response.outputSpeech = {};
             
             echoResponse.response.outputSpeech.type = "PlainText"
-            echoResponse.response.outputSpeech.text = "Missiles at the ready"
+            echoResponse.response.outputSpeech.text = "Missiles at the ready.  Awaiting your command"
             echoResponse.response.shouldEndSession = "false";
             theRequest = JSON.parse(jsonString);
             if (theRequest.request.type == 'IntentRequest') {
@@ -52,6 +52,7 @@ https.createServer(options, function(req, res) {
                 {
                     stopTime = Math.floor(degrees *22.3);
                     console.log("Stoptime: ",stopTime);
+                    console.log("GOING LEFT");
                     setTimeout(function(){ThunderConnector.command('left');},0);
                     setTimeout(function(){ThunderConnector.command('stop');},stopTime);
                 }
@@ -59,6 +60,7 @@ https.createServer(options, function(req, res) {
                 {
                     stopTime = Math.floor(degrees *22.3);
                     console.log("Stoptime: ",stopTime);
+                    console.log("GOING RIGHT");
                     setTimeout(function(){ThunderConnector.command('right');},0);
                     setTimeout(function(){ThunderConnector.command('stop');},stopTime);
                 }
@@ -66,6 +68,7 @@ https.createServer(options, function(req, res) {
                 {
                     stopTime = Math.floor(degrees *22.3);
                     console.log("Stoptime: ",stopTime);
+                    console.log("GOING UP");
                     setTimeout(function(){ThunderConnector.command('up');},0);
                     setTimeout(function(){ThunderConnector.command('stop');},stopTime);
                 }
@@ -73,13 +76,26 @@ https.createServer(options, function(req, res) {
                 {
                     stopTime = Math.floor(degrees *22.3);
                     console.log("Stoptime: ",stopTime);
+                    console.log("GOING DOWN");
                     setTimeout(function(){ThunderConnector.command('down');},0);
                     setTimeout(function(){ThunderConnector.command('stop');},stopTime);
+                }
+                if (choice === "light")
+                {
+                    echoResponse.response.outputSpeech.text = "Lights on"
+                    console.log("LIGHTS ON");
+                    setTimeout(function(){ThunderConnector.command('ledOn');},10);
+                }
+                if (choice === "dark")
+                {
+                    echoResponse.response.outputSpeech.text = "Lights off"
+                    console.log("LIGHTS OFF");
+                    setTimeout(function(){ThunderConnector.command('ledOff');},10);
                 }
                 if (choice === "fire")
                 {
                     echoResponse.response.outputSpeech.text = "Fire"
-                    setTimeout(function(){ThunderConnector.command('fire');},10000);
+                    setTimeout(function(){ThunderConnector.command('fire');},10);
                     
                     // setTimeout(function(){ThunderConnector.command('stop');},1000);
                 }

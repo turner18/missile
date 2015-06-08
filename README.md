@@ -1,10 +1,8 @@
 README
 
 Purpose and goal: The point of this is to allow users that have an Amazon Echo and a Thunder Turret to link
-the two so that they can give commands to Alexa and she will make the turret move.
-
-Problems: While I was working with the turrets, the one in particular I had couldn't fire with the code and
-I didn't have enough time to test it with another turret.
+the two so that they can give commands to Alexa and she will make the turret move, turn the light on and off,
+and shoot.
 
 How to install: The following instructions are for people who understand how to login to Putty have downloaded
 Sublime, have an Echo, and have a Thunder Turret.
